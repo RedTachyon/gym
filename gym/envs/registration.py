@@ -419,7 +419,7 @@ def _check_spec_register(spec: EnvSpec):
     """Checks whether the spec is valid to be registered. Helper function for `register`."""
     global registry, current_namespace
     if current_namespace is not None:
-        if spec.namespace is not None:
+        if spec.namespace is not None and spec.namespace != current_namespace:
             logger.warn(
                 f"Custom namespace `{spec.namespace}` is being overridden "
                 f"by namespace `{current_namespace}`. If you are developing a "
