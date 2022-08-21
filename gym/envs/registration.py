@@ -131,7 +131,7 @@ class EnvSpec:
     """
 
     id: str
-    entry_point: Optional[Union[Callable, str]] = field(default=None)
+    entry_point: Union[Callable, str]
     reward_threshold: Optional[float] = field(default=None)
     nondeterministic: bool = field(default=False)
 
@@ -610,9 +610,7 @@ def make(
     _kwargs = spec_.kwargs.copy()
     _kwargs.update(kwargs)
 
-    if spec_.entry_point is None:
-        raise error.Error(f"{spec_.id} registered but entry_point is not specified")
-    elif callable(spec_.entry_point):
+    if callable(spec_.entry_point):
         env_creator = spec_.entry_point
     else:
         # Assume it's a string
